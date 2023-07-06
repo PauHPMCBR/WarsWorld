@@ -20,7 +20,7 @@ export function getUnitSprite(
 }
 
 export function showUnits(
-  spriteSheet: Spritesheet,
+  spriteSheets: Spritesheet[],
   mapData: Tile[][],
   units: CreatableUnit[]
 ) {
@@ -29,7 +29,10 @@ export function showUnits(
 
   for (const unit of units) {
     const unitContainer = new Container();
-    unitContainer.addChild(getUnitSprite(spriteSheet, unit));
+    console.log(spriteSheets.length);
+    console.log(unit.playerSlot);
+    console.log("amogus");
+    unitContainer.addChild(getUnitSprite(spriteSheets[unit.playerSlot], unit));
 
     //if own unit, moved, etc, has different behaviour
 

@@ -2,7 +2,7 @@ import { CreatableUnit } from "../server/schemas/unit";
 
 export const demoUnit: CreatableUnit = {
   type: "infantry",
-  playerSlot: 1,
+  playerSlot: 0,
   position: [5, 5],
   stats: {
     hp: 9,
@@ -12,7 +12,7 @@ export const demoUnit: CreatableUnit = {
 export const demoUnits: CreatableUnit[] = [
   {
     type: "infantry",
-    playerSlot: 1,
+    playerSlot: 0,
     position: [3, 2],
     stats: {
       hp: 9,
@@ -22,7 +22,7 @@ export const demoUnits: CreatableUnit[] = [
 
   {
     type: "tank",
-    playerSlot: 1,
+    playerSlot: 0,
     position: [5, 5],
     stats: {
       hp: 9,
@@ -33,7 +33,7 @@ export const demoUnits: CreatableUnit[] = [
 
   {
     type: "recon",
-    playerSlot: 2,
+    playerSlot: 1,
     position: [12, 4],
     stats: {
       hp: 9,

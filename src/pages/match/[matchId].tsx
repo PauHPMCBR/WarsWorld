@@ -167,7 +167,7 @@ const Match = ({ spriteData }) => {
         });
       });
 
-      const units = showUnits(spriteSheets[1], mapData, demoUnits);
+      const units = showUnits(spriteSheets, mapData, demoUnits);
       mapContainer.addChild(units);
     }
     console.log(mapData);
