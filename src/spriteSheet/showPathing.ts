@@ -5,9 +5,10 @@
 // @ts-nocheck
 
 import { Container, Texture, Sprite } from "pixi.js";
-import { MovementType } from "../shared/match-logic/buildable-unit";
+import { MovementType, unitPropertiesMap } from "../shared/match-logic/buildable-unit";
 import { getMovementCost } from "../shared/match-logic/tiles";
 import { Tile, Weather } from "../server/schemas/tile.ts";
+import { CreatableUnit } from "../server/schemas/unit";
 
 type Coord = {
   x: number;
@@ -146,7 +147,12 @@ function getAttackableTiles(
   return attackCoords;
 }
 
-export async function showPassableTiles(mapData: Tile[][]) {
+export async function showPassableTiles(
+  mapData: Tile[][],
+  unit: CreatableUnit
+): Container {
+  const unitProperties = unitPropertiesMap[unit.type];
+
   //The big container holding everything
   //set its eventmode to static for interactivity and sortable for zIndex
   const markedTiles = new Container();
@@ -155,11 +161,11 @@ export async function showPassableTiles(mapData: Tile[][]) {
 
   const nodes: Map<Coord, Node> = getAccessibleNodes(
     mapData,
-    "clear",
-    6,
-    "treads",
-    5,
-    5
+    "clear", //!
+    unitProperties.moveRange,
+    unitProperties.movementType,
+    unit.position[0],
+    unit.position[1]
   );
   for (const [pos, node] of nodes.entries()) {
     const square = new Sprite(Texture.WHITE);
@@ -179,7 +185,10 @@ export async function showPassableTiles(mapData: Tile[][]) {
   return markedTiles;
 }
 
-export async function showAttackableTiles(mapData: Tile[][]) {
+export async function showAttackableTiles(mapData: Tile[][], unit: CreatableUnit): Container {
+  
+  const unitProperties = unitPropertiesMap[unit.type];
+  
   //The big container holding everything
   //set its eventmode to static for interactivity and sortable for zIndex
   const markedTiles = new Container();
@@ -188,11 +197,11 @@ export async function showAttackableTiles(mapData: Tile[][]) {
 
   const coords: Coord[] = getAttackableTiles(
     mapData,
-    "clear",
-    6,
-    "treads",
-    5,
-    5
+    "clear", //!
+    unitProperties.moveRange,
+    unitProperties.movementType,
+    unit.position[0],
+    unit.position[1]
   );
   for (const pos of coords) {
     const square = new Sprite(Texture.WHITE);
